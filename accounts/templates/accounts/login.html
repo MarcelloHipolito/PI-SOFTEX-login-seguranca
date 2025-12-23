@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+    body {
+        background: #f8f8fa; /* Fundo mais neutro */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte um pouco mais moderna */
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 80px auto;
+        background: white;
+        padding: 30px; /* Um pouco mais de padding */
+        border-radius: 8px; /* Borda mais suave */
+        border-top: 5px solid #e91e63; /* Cor primária da saúde */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra mais sutil */
+    }
+
+    h1 {
+        text-align: center;
+        color: #333333; /* Título em preto/cinza escuro para legibilidade */
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #cccccc; /* Borda neutra */
+        border-radius: 4px;
+        margin-top: 15px;
+        font-size: 16px;
+        box-sizing: border-box; /* Garante que padding não estoure o width */
+    }
+    
+    input:focus {
+        border-color: #e91e63; /* Foco com a cor primária */
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
+    }
+
+    button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 12px;
+        background: #e91e63; /* Rosa principal (Saúde) */
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease; /* Transição suave */
+    }
+
+    button:hover {
+        background: #c2185b; /* Rosa mais escuro no hover */
+    }
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Acesso ao Sistema</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="error">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Email:</label>
+        <input type="email" name="email" required placeholder="email@exemplo.com">
+
+        <label>Senha:</label>
+        <input type="password" name="password" required placeholder="••••••••">
+
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+
+</body>
+</html>

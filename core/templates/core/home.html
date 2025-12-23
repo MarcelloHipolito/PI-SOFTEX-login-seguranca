@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Página Inicial | Termografia Mamária</title>
+
+<style>
+    /* Estilos Gerais */
+    body {
+        background: #f8f8fa; /* Fundo principal */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0; /* Remove margem padrão do body */
+        padding: 0;
+    }
+
+    /* Estilo do Cabeçalho (Barra Superior) */
+    .header {
+        background: #e91e63; /* Cor primária */
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* Estilo do Container (Onde está o conteúdo) */
+    .container {
+        max-width: 500px; /* Aumentei um pouco para caber mais conteúdo */
+        margin: 40px auto; /* Margem ajustada após a barra */
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        border-top: 5px solid #e91e63;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Estilo do Título */
+    h1 {
+        text-align: center;
+        color: #333333;
+        font-size: 24px;
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
+
+    /* Estilo dos Parágrafos */
+    p {
+        color: #555;
+        line-height: 1.6;
+        text-align: center;
+    }
+    
+    /* ------------------------------------------- */
+    /* Estilo dos Botões (Links com classe .btn) */
+    /* ------------------------------------------- */
+    .btn {
+        display: block; /* Ocupa a largura total (como um botão) */
+        width: 100%;
+        margin: 15px 0; /* Espaçamento entre os botões */
+        padding: 12px;
+        background: #e91e63;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none; /* Remove sublinhado do link */
+        cursor: pointer;
+        transition: background 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .btn:hover {
+        background: #c2185b;
+    }
+
+    /* Estilo específico para o botão de Sair (Opcional) */
+    .btn-logout {
+        background: #6c757d; /* Cinza para dar menos destaque */
+    }
+
+    .btn-logout:hover {
+        background: #495057;
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    Sistema de Termografia Mamária
+</div>
+
+<div class="container">
+    <h1>Bem-vindo(a), {{ user.first_name|default:user.username }}</h1>
+
+    <p>
+        Sua autenticação com MFA foi realizada com sucesso! Esta é a área de acesso seguro do sistema.
+    </p>
+
+    <a class="btn" href="#">📁 Ver imagens</a>
+    <a class="btn" href="#">🩺 Analisar nova imagem</a>
+    <a class="btn" href="#">⚙ Configurações</a>
+
+    <a class="btn btn-logout" href="{% url 'accounts:logout' %}">🚪 Sair</a>
+</div>
+
+</body>
+</html>

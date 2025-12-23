@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Verificação MFA</title>
+
+<style>
+    body {
+        background: #f8f8fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 80px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        border-top: 5px solid #e91e63;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333333;
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    /* Estilo para a caixa de input */
+    input {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        margin-top: 15px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    input:focus {
+        border-color: #e91e63;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
+    }
+
+    /* Estilo para o botão principal */
+    button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 12px;
+        background: #e91e63;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    button:hover {
+        background: #c2185b;
+    }
+    
+    /* Estilo para o link de reset */
+    .reset-link {
+        color: #e91e63;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+
+    .reset-link:hover {
+        color: #c2185b;
+        text-decoration: underline;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Verificação MFA</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="text-align: center; color: #e91e63; font-weight: bold;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <input type="text" name="code" placeholder="Código de 6 dígitos" required>
+
+        <button type="submit">Verificar</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 30px;">
+        <a href="{% url 'accounts:mfa_reset' %}" class="reset-link">
+            Perdeu seu token? Clique aqui para resetar o MFA.
+        </a>
+    </p>
+
+</div>
+
+</body>
+</html>

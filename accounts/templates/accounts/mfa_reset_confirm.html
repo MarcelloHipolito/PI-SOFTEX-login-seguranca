@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Resetar MFA</title>
+<style>
+    body {
+        background: #f8f8fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 80px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        border-top: 5px solid #e91e63;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333333;
+        font-size: 24px;
+        margin-bottom: 25px;
+        margin-top: 0;
+    }
+    
+    p {
+        color: #555;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    /* Estilo para todos os botões/links de ação na tela de reset */
+    .btn-action { /* Nova classe para centralizar a estilização */
+        display: block;
+        width: 100%;
+        margin-top: 15px; /* Espaçamento uniforme */
+        padding: 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        box-sizing: border-box; /* Garante que padding e borda não aumentem o tamanho */
+    }
+
+    .btn-confirm {
+        background: #e91e63;
+        border: none;
+        color: white;
+    }
+
+    .btn-confirm:hover {
+        background: #c2185b;
+    }
+    
+    .btn-cancel {
+        background: #cccccc; /* Cinza claro para cancelar */
+        border: none;
+        color: #333;
+    }
+
+    .btn-cancel:hover {
+        background: #aaaaaa;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Resetar Autenticação MFA</h1>
+
+    <p>
+        **ATENÇÃO:** Ao confirmar, você perderá a configuração de segurança atual. 
+        Você será redirecionado para configurar um novo código MFA.
+    </p>
+    
+    <p style="font-weight: bold; color: #e91e63;">Deseja realmente resetar seu token MFA?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn-action btn-confirm">Sim, Resetar meu MFA</button>
+    </form>
+    
+    <a href="{% url 'accounts:mfa_verify' %}" class="btn-action btn-cancel">Cancelar e Voltar</a>
+
+</div>
+
+</body>
+</html>

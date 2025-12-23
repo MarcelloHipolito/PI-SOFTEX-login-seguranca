@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Configurar MFA</title>
+<style>
+    body {
+        background: #f8f8fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+        max-width: 450px; /* Aumentei um pouco para o QR code e texto */
+        margin: 80px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        border-top: 5px solid #e91e63;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        text-align: center; /* Centraliza o QR code e texto */
+    }
+
+    h1 {
+        color: #333333;
+        font-size: 24px;
+        margin-bottom: 20px;
+        margin-top: 0;
+    }
+    
+    p {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    /* Estilo para a imagem do QR Code */
+    .qr-code-img {
+        max-width: 250px; /* Define um tamanho máximo para o QR code */
+        height: auto; /* Mantém a proporção */
+        display: block; /* Garante que a margem auto funcione */
+        margin: 20px auto; /* Centraliza o QR code */
+        border: 1px solid #eee; /* Uma borda sutil para destacá-lo */
+        padding: 5px;
+    }
+    
+    /* Estilo para o campo de input */
+    input {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        margin-top: 20px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    
+    input:focus {
+        border-color: #e91e63;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
+    }
+
+    /* Estilo para o botão */
+    button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 12px;
+        background: #e91e63;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    button:hover {
+        background: #c2185b;
+    }
+    
+    /* Estilo para o segredo (se você o exibir) */
+    .secret-code {
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 20px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1.1em;
+        word-break: break-all; /* Evita que o código saia da caixa */
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Configurar MFA</h1>
+
+    <p>Escaneie o QR Code no Microsoft Authenticator ou insira o código manualmente:</p>
+    
+    <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code MFA" class="qr-code-img">
+
+    {% if secret %}
+    <p>Ou insira o código manualmente no seu aplicativo:</p>
+    <div class="secret-code">{{ secret }}</div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'accounts:mfa_verify' %}">
+        {% csrf_token %}
+        <input type="text" name="code" placeholder="Insira o código de 6 dígitos" required>
+        <button type="submit">Verificar e Ativar</button>
+    </form>
+</div>
+
+</body>
+</html>
