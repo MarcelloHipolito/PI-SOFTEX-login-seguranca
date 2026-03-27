@@ -60,11 +60,14 @@ O fluxo de autenticação e MFA é controlado por Views e Middleware.
 
 🔐 A. Fluxo de Login (views.py)
 Rota	View	Função
+
+```
 /accounts/login/	login_view	Etapa 1: valida e-mail e senha. Salva pre_mfa_user_id na sessão.
 /accounts/mfa-setup/	mfa_setup_view	Etapa 2: geração do totp_secret, salva no banco e exibe o QR Code.
 /accounts/mfa-verify/	mfa_verify_view	Etapa 3: recebe o código TOTP, valida com pyotp.TOTP(secret).verify(), e define mfa_passed=True.
 /accounts/mfa-reset/	mfa_reset_view	Reseta o MFA do usuário (zera o totp_secret).
 /accounts/logout/	logout_view	Faz logout e limpa a sessão (inclusive mfa_passed).
+```
 🛡️ B. Middleware de Segurança (middleware.py)
 
 A classe EnsureMFAPassedMiddleware garante:
